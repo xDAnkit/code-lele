@@ -1,0 +1,5 @@
+# Node.js dependencies
+node_modules/
+
+# Nodemon files
+nodemon-debug.log
