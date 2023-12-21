@@ -1,0 +1,21 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  position: relative;
+}
+.dark-theme {
+  height: 92vh;
+  background-color: #343a40; /* Set the dark background color */
+  color: #ffffff; /* Set the text color to white or a light color */
+}
+.monaco-text::before {
+  display: flex;
+  content: "";
+  position: absolute;
+  color: white;
+  font-size: small;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-style: italic;
+}
