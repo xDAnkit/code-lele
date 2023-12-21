@@ -1,4 +1,4 @@
-# Code-Lele
+# Code-Lele (An open source Code exchange platform)
 
 Code-Lele is a collaborative platform designed for sharing live code with each other in real-time.
 
@@ -16,8 +16,6 @@ To set up the project locally, follow these instructions:
    ```bash
    npm install
    ```
-
-````
 
 ### Frontend Setup
 
@@ -40,11 +38,8 @@ We welcome contributions! If you'd like to contribute to Code-Lele, please fork 
 
 This project is licensed under the [MIT License](LICENSE).
 
-````
-
 As for the code snippet, here's an example you can include in your README:
 
-````markdown
 ### Installation Instructions
 
 #### Backend
@@ -56,7 +51,6 @@ cd Backend
 # Install dependencies
 npm install
 ```
-````
 
 #### Frontend
 
@@ -68,7 +62,4 @@ cd Frontend
 npm install
 ```
 
-```
-
 This snippet will show users how to navigate to the respective directories and run `npm install` for both the backend and frontend components of your "code-lele" app. Feel free to adjust the instructions or formatting to better suit your preferences!
-```
