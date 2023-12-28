@@ -7,6 +7,17 @@ export default function EditorTab() {
   const location = useLocation();
   const [codeSave, setCodeSave] = useState(null);
   const [editorCode, setEditorCode] = useState("");
+  const [userInput, setuserInput] = useState("");
+
+  //function to get userinput chnage
+  const handleInputChange = (e) => {
+    setuserInput(e.target.value);
+  };
+
+  // getting th flag
+
+  const isReadOnly = userInput.toLowerCase() !== "yash";
+
   console.log(location.pathname.split("/")[2]);
   console.log(Lang);
   useEffect(() => {
@@ -80,11 +91,20 @@ export default function EditorTab() {
   }
   return (
     <>
+      <input
+        type="text"
+        value={userInput}
+        placeholder="To enable Write mode please enter yash"
+        onChange={handleInputChange}
+      />
       <Editor
         height="90vh"
         language={codeSave ? codeSave.language : Lang}
         value={codeSave ? codeSave.code : ""}
         onChange={preTextRemove}
+        options={{
+          readOnly: isReadOnly,
+        }}
       />
       <div className="monaco-text"></div>
     </>
