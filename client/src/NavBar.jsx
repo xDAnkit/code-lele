@@ -84,8 +84,6 @@ const supportedLangList = {
   PlainText: "plaintext",
 };
 
-// Login logiut setup function
-
 export default function NavBar(props) {
   const [selectedLang, setSelectLang] = useState("PlainText");
   const Location = useLocation();

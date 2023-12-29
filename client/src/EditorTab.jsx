@@ -9,10 +9,7 @@ export default function EditorTab() {
   const [codeSave, setCodeSave] = useState(null);
   const [editorCode, setEditorCode] = useState("");
 
-  //function to get userinput chnage
-
   // getting th flag
-
   const { user, isAuthenticated } = useAuth0();
   const hasUser = isAuthenticated && user.name === "Yash Shukla";
 
