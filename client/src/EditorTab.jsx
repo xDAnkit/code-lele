@@ -2,24 +2,21 @@ import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 export default function EditorTab() {
   const Lang = useOutletContext();
   const location = useLocation();
   const [codeSave, setCodeSave] = useState(null);
   const [editorCode, setEditorCode] = useState("");
-  const [userInput, setuserInput] = useState("");
 
   //function to get userinput chnage
-  const handleInputChange = (e) => {
-    setuserInput(e.target.value);
-  };
 
   // getting th flag
 
-  const isReadOnly = userInput.toLowerCase() !== "yash";
+  const { user, isAuthenticated } = useAuth0();
+  const hasUser = isAuthenticated && user.name === "Yash Shukla";
 
-  console.log(location.pathname.split("/")[2]);
-  console.log(Lang);
+  // console.log(location.pathname.split("/")[2]);
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
       axios
@@ -91,19 +88,13 @@ export default function EditorTab() {
   }
   return (
     <>
-      <input
-        type="text"
-        value={userInput}
-        placeholder="To enable Write mode please enter yash"
-        onChange={handleInputChange}
-      />
       <Editor
         height="90vh"
         language={codeSave ? codeSave.language : Lang}
         value={codeSave ? codeSave.code : ""}
         onChange={preTextRemove}
         options={{
-          readOnly: isReadOnly,
+          readOnly: !hasUser,
         }}
       />
       <div className="monaco-text"></div>

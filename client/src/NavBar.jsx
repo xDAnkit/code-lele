@@ -91,10 +91,7 @@ export default function NavBar(props) {
   const Location = useLocation();
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
-
   const { user, isAuthenticated } = useAuth0();
-
-  console.log(user);
 
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
