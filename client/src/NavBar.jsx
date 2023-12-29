@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, forwardRef, useEffect } from "react";
 import { Container, Dropdown, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 const supportedLangList = {
   ABAP: "abap",
   Apex: "apex",
@@ -82,9 +83,19 @@ const supportedLangList = {
   JSON: "json",
   PlainText: "plaintext",
 };
+
+// Login logiut setup function
+
 export default function NavBar(props) {
   const [selectedLang, setSelectLang] = useState("PlainText");
   const Location = useLocation();
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+
+  const { user, isAuthenticated } = useAuth0();
+
+  console.log(user);
+
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
       axios
@@ -143,15 +154,30 @@ export default function NavBar(props) {
               <Container></Container>
             )}
           </Nav>
-          <button
-            type="button"
-            className="m-1 btn btn-outline-secondary btn-sm"
-          >
-            Sign In
-          </button>
-          <button type="button" className="m-1 btn btn-danger btn-sm">
-            Sign Up
-          </button>
+
+          {isAuthenticated === false ? (
+            <button
+              type="button"
+              className="m-1 btn btn-outline-secondary btn-sm"
+              onClick={() => loginWithRedirect()}
+            >
+              Sign In/ Sign Up
+            </button>
+          ) : (
+            <div className="Profile">
+              <div className="Profile-Box">
+                {isAuthenticated && <p className="ProfileName">{user.name}</p>}
+              </div>
+
+              <button
+                type="button"
+                className="m-1 btn btn-danger btn-sm"
+                onClick={() => logout()}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </Container>
       </Navbar>
     </>

@@ -3,6 +3,11 @@
   text-align: center;
   position: relative;
 }
+p {
+  margin: 0;
+  padding: 0;
+}
+
 .dark-theme {
   height: 92vh;
   background-color: #343a40; /* Set the dark background color */
@@ -18,4 +23,23 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-style: italic;
+}
+
+.Profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.Profile-Box {
+}
+
+.Profile-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.ProfileName {
+  color: white;
 }

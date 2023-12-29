@@ -36,4 +36,3 @@ root.render(
     <RouterProvider router={router} />
   </Auth0Provider>
 );
-root.render(<RouterProvider router={router} />);
