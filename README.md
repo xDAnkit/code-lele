@@ -2,24 +2,24 @@
 
 Code-Lele is a collaborative platform designed for sharing live code with each other in real-time.
 
-This repository contains both the backend and frontend components of the application.
+This repository contains both the server and client components of the application.
 
 ## Getting Started
 
 To set up the project locally, follow these instructions:
 
-### Backend Setup
+### server Setup
 
-1. Navigate to the `Backend` directory.
+1. Navigate to the `server` directory.
 2. Run the following command in your terminal to install dependencies:
 
    ```bash
    npm install
    ```
 
-### Frontend Setup
+### client Setup
 
-1. Navigate to the `Frontend` directory.
+1. Navigate to the `client` directory.
 2. Run the following command in your terminal to install dependencies:
 
    ```bash
@@ -28,7 +28,7 @@ To set up the project locally, follow these instructions:
 
 ## Usage
 
-Once you've installed the dependencies for both the backend and frontend, you can start the development servers and begin using Code-Lele. Make sure to follow any additional instructions specified in each component's directory.
+Once you've installed the dependencies for both the server and client, you can start the development servers and begin using Code-Lele. Make sure to follow any additional instructions specified in each component's directory.
 
 ## Contributing
 
@@ -42,24 +42,24 @@ As for the code snippet, here's an example you can include in your README:
 
 ### Installation Instructions
 
-#### Backend
+#### server
 
 ```bash
-# Go to Backend directory
-cd Backend
+# Go to server directory
+cd server
 
 # Install dependencies
 npm install
 ```
 
-#### Frontend
+#### client
 
 ```bash
-# Go to Frontend directory
-cd Frontend
+# Go to client directory
+cd client
 
 # Install dependencies
 npm install
 ```
 
-This snippet will show users how to navigate to the respective directories and run `npm install` for both the backend and frontend components of your "code-lele" app. Feel free to adjust the instructions or formatting to better suit your preferences!
+This snippet will show users how to navigate to the respective directories and run `npm install` for both the server and client components of your "code-lele" app. Feel free to adjust the instructions or formatting to better suit your preferences!
