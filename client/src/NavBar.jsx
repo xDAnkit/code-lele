@@ -107,11 +107,12 @@ export default function NavBar(props) {
         });
     }
   }, []);
-  function onSelectLang(value) {
+
+  const onSelectLang = (value) => {
     setSelectLang(value);
-    console.log(value);
     props.setLang(() => supportedLangList[value]);
-  }
+  };
+
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
