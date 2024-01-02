@@ -6,8 +6,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import App from "./App";
 import EditorTab from "./EditorTab";
 import HomePage from "./HomePage";
-import { domain } from "../Variables/Variables.js";
-import { clientId } from "../Variables/Variables.js";
+import { authClientId, authDomain } from "./config/app.config.js";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,8 +28,8 @@ const root = createRoot(rootElement);
 
 root.render(
   <Auth0Provider
-    domain={domain}
-    clientId={clientId}
+    domain={authDomain}
+    clientId={authClientId}
     authorizationParams={{
       redirect_uri: window.location.origin,
     }}
