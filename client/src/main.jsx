@@ -6,14 +6,8 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import App from "./App";
 import EditorTab from "./EditorTab";
 import HomePage from "./HomePage";
-
-const domain = import.meta.env.VITE_AUTH_DOMAIN;
-const clientId = import.meta.env.VITE_AUTH_CLIENT_ID;
-
-// console.log(domain, clientId);
-
-console.log("vite aith domain", import.meta.env.VITE_AUTH_DOMAIN);
-
+import { domain } from "../Variables/Variables.js";
+import { clientId } from "../Variables/Variables.js";
 const router = createBrowserRouter([
   {
     path: "/",

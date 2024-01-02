@@ -9,11 +9,9 @@ export default function EditorTab() {
   const [codeSave, setCodeSave] = useState(null);
   const [editorCode, setEditorCode] = useState("");
 
-  // getting th flag
   const { user, isAuthenticated } = useAuth0();
   const hasUser = isAuthenticated && user.name === "Yash Shukla";
 
-  // console.log(location.pathname.split("/")[2]);
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
       axios
