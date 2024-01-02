@@ -94,11 +94,7 @@ export default function NavBar(props) {
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
       axios
-        .get(
-          `https://codesharebackendapi.onrender.com/${
-            location.pathname.split("/")[2]
-          }`
-        )
+        .get(`localhost:9001/${location.pathname.split("/")[2]}`)
         .then((res) => {
           const selectedKey = Object.keys(supportedLangList).find(
             (key) => res.data.language == supportedLangList[key]
@@ -127,7 +123,7 @@ export default function NavBar(props) {
             >
               Home
             </Link>
-            {Location.pathname.startsWith("/code/") ? (
+            {Location.pathname.startsWith("/") ? (
               <Dropdown onSelect={onSelectLang}>
                 <Dropdown.Toggle variant="dark" id="dropdown-basic">
                   {selectedLang}

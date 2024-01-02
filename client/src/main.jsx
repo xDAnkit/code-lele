@@ -17,7 +17,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/code/:id",
+        path: "/:id",
         element: <EditorTab />,
       },
     ],
