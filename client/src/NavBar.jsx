@@ -154,7 +154,7 @@ export default function NavBar(props) {
             <button
               type="button"
               className="m-1 btn btn-outline-secondary btn-sm"
-              onClick={() => loginWithRedirect()}
+              onClick={loginWithRedirect}
             >
               Sign In/ Sign Up
             </button>
@@ -167,7 +167,7 @@ export default function NavBar(props) {
               <button
                 type="button"
                 className="m-1 btn btn-danger btn-sm"
-                onClick={() => logout()}
+                onClick={logout}
               >
                 Logout
               </button>
