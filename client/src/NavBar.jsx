@@ -1,7 +1,8 @@
 import axios from "axios";
-import { useState, forwardRef, useEffect } from "react";
-import { Container, Dropdown, Nav, Navbar } from "react-bootstrap";
+import React, { useState, forwardRef, useEffect } from "react";
+import { Container, Dropdown, Form, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+
 const supportedLangList = {
   ABAP: "abap",
   Apex: "apex",
@@ -84,27 +85,37 @@ const supportedLangList = {
 };
 export default function NavBar(props) {
   const [selectedLang, setSelectLang] = useState("PlainText");
+  const [value, setValue] = useState("");
+  //console.log(value);
   const Location = useLocation();
-  useEffect(()=>{
-    if(location.pathname.split('/')[2]){
-      axios.get(`https://codesharebackendapi.onrender.com/${location.pathname.split('/')[2]}`).then((res)=>{
-        const selectedKey = Object.keys(supportedLangList).find(key=> res.data.language == supportedLangList[key]);
-        setSelectLang(selectedKey);
-      });
-      
+  useEffect(() => {
+    if (location.pathname.split("/")[2]) {
+      axios
+        .get(
+          `https://codesharebackendapi.onrender.com/${
+            location.pathname.split("/")[2]
+          }`
+        )
+        .then((res) => {
+          const selectedKey = Object.keys(supportedLangList).find(
+            (key) => res.data.language == supportedLangList[key]
+          );
+          setSelectLang(selectedKey);
+        });
     }
-  },[]);
+  }, []);
   function onSelectLang(value) {
     setSelectLang(value);
     console.log(value);
-    props.setLang(()=> supportedLangList[value]);
+    props.setLang(() => supportedLangList[value]);
   }
+
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand>Code Share</Navbar.Brand>
-          
+
           <Nav className="me-auto">
             <Link
               className="p-2"
@@ -113,22 +124,48 @@ export default function NavBar(props) {
             >
               Home
             </Link>
-            {Location.pathname.startsWith('/code/') ? (
+            {Location.pathname.startsWith("/code/") ? (
               <Dropdown onSelect={onSelectLang}>
                 <Dropdown.Toggle variant="dark" id="dropdown-basic">
                   {selectedLang}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   <ScrollableMenu>
-                    {Object.keys(supportedLangList)
-                      .sort()
-                      .map((Langauge) => {
-                        return (
-                          <Dropdown.Item key={Langauge} eventKey={Langauge}>
-                            {Langauge}
-                          </Dropdown.Item>
-                        );
-                      })}
+                    <Form.Control
+                      autoFocus
+                      className="mx-3 my-2 w-auto"
+                      placeholder="Type to filter..."
+                      onChange={(e) => setValue(e.target.value)}
+                      value={value}
+                    />
+
+                    {value
+                      ? Object.keys(supportedLangList)
+                          .sort()
+                          .filter((Langauge) => {
+                            console.log(
+                              Langauge.toLowerCase().startsWith(value)
+                            );
+                            return Langauge.toLowerCase().startsWith(value);
+                          })
+                          .map((Langauge) => {
+                            console.log(Langauge);
+                            return (
+                              <Dropdown.Item key={Langauge} eventKey={Langauge}>
+                                {Langauge}
+                              </Dropdown.Item>
+                            );
+                          })
+                      : Object.keys(supportedLangList)
+                          .sort()
+                          .map((Langauge) => {
+                            //console.log(Langauge);
+                            return (
+                              <Dropdown.Item key={Langauge} eventKey={Langauge}>
+                                {Langauge}
+                              </Dropdown.Item>
+                            );
+                          })}
                   </ScrollableMenu>
                 </Dropdown.Menu>
               </Dropdown>
@@ -161,5 +198,5 @@ const ScrollableMenu = forwardRef(
     >
       {children}
     </div>
-  ),
+  )
 );
