@@ -6,10 +6,8 @@ package-lock.json
 yarn.lock
 
 # Environment variables
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env
+.env.*
 
 # IDEs and editors
 .vscode/

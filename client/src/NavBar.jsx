@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, forwardRef, useEffect } from "react";
 import { Container, Dropdown, Nav, Navbar } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 const supportedLangList = {
   ABAP: "abap",
   Apex: "apex",
@@ -82,29 +83,42 @@ const supportedLangList = {
   JSON: "json",
   PlainText: "plaintext",
 };
+
 export default function NavBar(props) {
   const [selectedLang, setSelectLang] = useState("PlainText");
   const Location = useLocation();
-  useEffect(()=>{
-    if(location.pathname.split('/')[2]){
-      axios.get(`https://codesharebackendapi.onrender.com/${location.pathname.split('/')[2]}`).then((res)=>{
-        const selectedKey = Object.keys(supportedLangList).find(key=> res.data.language == supportedLangList[key]);
-        setSelectLang(selectedKey);
-      });
-      
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
+
+  useEffect(() => {
+    if (location.pathname.split("/")[2]) {
+      axios
+        .get(
+          `https://codesharebackendapi.onrender.com/${
+            location.pathname.split("/")[2]
+          }`
+        )
+        .then((res) => {
+          const selectedKey = Object.keys(supportedLangList).find(
+            (key) => res.data.language == supportedLangList[key]
+          );
+          setSelectLang(selectedKey);
+        });
     }
-  },[]);
-  function onSelectLang(value) {
+  }, []);
+
+  const onSelectLang = (value) => {
     setSelectLang(value);
-    console.log(value);
-    props.setLang(()=> supportedLangList[value]);
-  }
+    props.setLang(() => supportedLangList[value]);
+  };
+
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
           <Navbar.Brand>Code Share</Navbar.Brand>
-          
+
           <Nav className="me-auto">
             <Link
               className="p-2"
@@ -113,7 +127,7 @@ export default function NavBar(props) {
             >
               Home
             </Link>
-            {Location.pathname.startsWith('/code/') ? (
+            {Location.pathname.startsWith("/code/") ? (
               <Dropdown onSelect={onSelectLang}>
                 <Dropdown.Toggle variant="dark" id="dropdown-basic">
                   {selectedLang}
@@ -136,15 +150,30 @@ export default function NavBar(props) {
               <Container></Container>
             )}
           </Nav>
-          <button
-            type="button"
-            className="m-1 btn btn-outline-secondary btn-sm"
-          >
-            Sign In
-          </button>
-          <button type="button" className="m-1 btn btn-danger btn-sm">
-            Sign Up
-          </button>
+
+          {isAuthenticated === false ? (
+            <button
+              type="button"
+              className="m-1 btn btn-outline-secondary btn-sm"
+              onClick={loginWithRedirect}
+            >
+              Sign In/ Sign Up
+            </button>
+          ) : (
+            <div className="Profile">
+              <div className="Profile-Box">
+                {isAuthenticated && <p className="ProfileName">{user.name}</p>}
+              </div>
+
+              <button
+                type="button"
+                className="m-1 btn btn-danger btn-sm"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </Container>
       </Navbar>
     </>
@@ -161,5 +190,5 @@ const ScrollableMenu = forwardRef(
     >
       {children}
     </div>
-  ),
+  )
 );

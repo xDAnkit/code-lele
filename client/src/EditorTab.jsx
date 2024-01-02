@@ -2,13 +2,16 @@ import Editor from "@monaco-editor/react";
 import { useEffect, useState } from "react";
 import { useLocation, useOutletContext } from "react-router-dom";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 export default function EditorTab() {
   const Lang = useOutletContext();
   const location = useLocation();
   const [codeSave, setCodeSave] = useState(null);
   const [editorCode, setEditorCode] = useState("");
-  console.log(location.pathname.split("/")[2]);
-  console.log(Lang);
+
+  const { user, isAuthenticated } = useAuth0();
+  const hasUser = isAuthenticated && user.name === "Yash Shukla";
+
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
       axios
@@ -85,6 +88,9 @@ export default function EditorTab() {
         language={codeSave ? codeSave.language : Lang}
         value={codeSave ? codeSave.code : ""}
         onChange={preTextRemove}
+        options={{
+          readOnly: !hasUser,
+        }}
       />
       <div className="monaco-text"></div>
     </>
