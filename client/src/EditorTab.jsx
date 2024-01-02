@@ -76,6 +76,7 @@ export default function EditorTab() {
         onChange={preTextRemove}
         options={{
           readOnly: !hasUser,
+          lineHeight: 24,
         }}
       />
       <div className="monaco-text"></div>
