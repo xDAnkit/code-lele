@@ -77,6 +77,7 @@ export default function EditorTab() {
         options={{
           readOnly: !hasUser,
           lineHeight: 24,
+          theme: "vs-dark",
         }}
       />
       <div className="monaco-text"></div>
