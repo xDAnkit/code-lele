@@ -48,3 +48,9 @@ p {
   text-decoration: none;
   color: black;
 }
+
+.code-logo {
+  width: 30px;
+  height: 30px;
+  margin: 0 10px;
+}

@@ -90,7 +90,6 @@ export default function NavBar(props) {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated } = useAuth0();
-
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
       axios
@@ -113,7 +112,8 @@ export default function NavBar(props) {
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand>Code Share</Navbar.Brand>
+          <img src="/code.png" alt="Navbarlogo" className="code-logo" />
+          <Navbar.Brand>Code Lele</Navbar.Brand>
 
           <Nav className="me-auto">
             <Link

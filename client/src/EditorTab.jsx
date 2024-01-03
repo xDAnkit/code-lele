@@ -10,7 +10,7 @@ export default function EditorTab() {
   const [editorCode, setEditorCode] = useState("");
 
   const { user, isAuthenticated } = useAuth0();
-  const hasUser = isAuthenticated && user.name === "Yash Shukla";
+  const hasUser = isAuthenticated && user.email === "Yash Shukla";
 
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
