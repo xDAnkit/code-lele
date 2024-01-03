@@ -15,7 +15,7 @@ export default function HomePage() {
         alignItems: "center",
       }}
     >
-      <Link to={`/${id}`} className="Button-link">
+      <Link to={`/${id}`} className="btn-link">
         <button type="button" className="btn btn-warning">
           Share Code
         </button>
