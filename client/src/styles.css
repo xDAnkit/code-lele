@@ -43,3 +43,8 @@ p {
 .ProfileName {
   color: white;
 }
+
+.btn-link {
+  text-decoration: none;
+  color: black;
+}

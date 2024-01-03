@@ -15,11 +15,7 @@ export default function EditorTab() {
   useEffect(() => {
     if (location.pathname.split("/")[2]) {
       axios
-        .get(
-          `https://codesharebackendapi.onrender.com/${
-            location.pathname.split("/")[2]
-          }`
-        )
+        .get(`localhost:9001/${location.pathname.split("/")[2]}`)
         .then((res) => setCodeSave(() => (res.data ? { ...res.data } : null)));
     }
   }, []);
@@ -27,16 +23,11 @@ export default function EditorTab() {
     if (codeSave === null && editorCode != "") {
       console.log("post request");
       axios
-        .post(
-          `https://codesharebackendapi.onrender.com/${
-            location.pathname.split("/")[2]
-          }`,
-          {
-            id: location.pathname.split("/")[2],
-            code: editorCode,
-            language: Lang,
-          }
-        )
+        .post(`localhost:9001/${location.pathname.split("/")[2]}`, {
+          id: location.pathname.split("/")[2],
+          code: editorCode,
+          language: Lang,
+        })
         .then(function (response) {
           console.log(response.status);
         })
@@ -46,15 +37,10 @@ export default function EditorTab() {
     }
     if (editorCode !== "") {
       axios
-        .patch(
-          `https://codesharebackendapi.onrender.com/${
-            location.pathname.split("/")[2]
-          }`,
-          {
-            code: editorCode,
-            language: Lang,
-          }
-        )
+        .patch(`localhost:9001/${location.pathname.split("/")[2]}`, {
+          code: editorCode,
+          language: Lang,
+        })
         .then(function (response) {
           console.log(response.status);
         })
@@ -90,6 +76,8 @@ export default function EditorTab() {
         onChange={preTextRemove}
         options={{
           readOnly: !hasUser,
+          lineHeight: 24,
+          theme: "vs-dark",
         }}
       />
       <div className="monaco-text"></div>
