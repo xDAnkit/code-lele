@@ -15,7 +15,7 @@ export default function HomePage() {
         alignItems: "center",
       }}
     >
-      <Link to={`/${id}`} style={{ textDecoration: "none", color: "black" }}>
+      <Link to={`/${id}`} className="Button-link">
         <button type="button" className="btn btn-warning">
           Share Code
         </button>
