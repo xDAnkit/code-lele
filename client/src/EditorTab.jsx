@@ -85,6 +85,7 @@ export default function EditorTab() {
         language={codeSave ? codeSave.language : Lang}
         value={codeSave ? codeSave.code : ""}
         onChange={preTextRemove}
+        theme="vs-dark"
       />
       <div className="monaco-text"></div>
     </>

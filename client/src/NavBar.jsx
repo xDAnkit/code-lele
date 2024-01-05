@@ -1,7 +1,19 @@
 import axios from "axios";
 import React, { useState, forwardRef, useEffect } from "react";
-import { Container, Dropdown, Form, Nav, Navbar } from "react-bootstrap";
+import {
+  Container,
+  Dropdown,
+  DropdownDivider,
+  Form,
+  Nav,
+  Navbar,
+} from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
+import { getLanguage, setLanguage } from "./service/LocalStorageService";
+import {
+  LANGUAGE_HISTORY,
+  LAST_SELECTED_LANGUAGE,
+} from "./Util/constants/localStorage";
 
 const supportedLangList = {
   ABAP: "abap",
@@ -86,6 +98,7 @@ const supportedLangList = {
 export default function NavBar(props) {
   const [selectedLang, setSelectLang] = useState("PlainText");
   const [value, setValue] = useState("");
+
   //console.log(value);
   const Location = useLocation();
   useEffect(() => {
@@ -100,13 +113,22 @@ export default function NavBar(props) {
           const selectedKey = Object.keys(supportedLangList).find(
             (key) => res.data.language == supportedLangList[key]
           );
-          setSelectLang(selectedKey);
+          const lastSelectedLanguage = getLanguage(LAST_SELECTED_LANGUAGE);
+          console.log(lastSelectedLanguage);
+          setSelectLang(
+            lastSelectedLanguage ? lastSelectedLanguage : selectedKey
+          );
         });
     }
   }, []);
   function onSelectLang(value) {
     setSelectLang(value);
-    console.log(value);
+    setLanguage(LAST_SELECTED_LANGUAGE, value);
+    const existingLanguage = JSON.parse(getLanguage(LANGUAGE_HISTORY)) || [];
+    existingLanguage.includes(value)
+      ? existingLanguage
+      : existingLanguage.push(value);
+    setLanguage(LANGUAGE_HISTORY, JSON.stringify(existingLanguage));
     props.setLang(() => supportedLangList[value]);
   }
 
@@ -130,33 +152,62 @@ export default function NavBar(props) {
                   {selectedLang}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
+                  <Form.Control
+                    autoFocus
+                    className="mx-3 my-2 w-auto"
+                    placeholder="Type to filter..."
+                    onChange={(e) => setValue(e.target.value)}
+                    value={value}
+                  />
                   <ScrollableMenu>
-                    <Form.Control
-                      autoFocus
-                      className="mx-3 my-2 w-auto"
-                      placeholder="Type to filter..."
-                      onChange={(e) => setValue(e.target.value)}
-                      value={value}
-                    />
-
-                    {value
-                      ? Object.keys(supportedLangList)
-                          .sort()
-                          .filter((Langauge) => {
-                            console.log(
-                              Langauge.toLowerCase().startsWith(value)
-                            );
-                            return Langauge.toLowerCase().startsWith(value);
-                          })
-                          .map((Langauge) => {
-                            console.log(Langauge);
+                    {value ? (
+                      Object.keys(supportedLangList)
+                        .sort()
+                        .map((Langauge) => {
+                          console.log(Langauge);
+                          if (
+                            Langauge.toLowerCase().search(
+                              value.toLowerCase()
+                            ) !== -1
+                          ) {
                             return (
                               <Dropdown.Item key={Langauge} eventKey={Langauge}>
                                 {Langauge}
                               </Dropdown.Item>
                             );
-                          })
-                      : Object.keys(supportedLangList)
+                          }
+                        })
+                    ) : JSON.parse(getLanguage(LANGUAGE_HISTORY)) == null ? (
+                      Object.keys(supportedLangList)
+                        .sort()
+                        .map((Langauge) => {
+                          //console.log(Langauge);
+                          return (
+                            <Dropdown.Item key={Langauge} eventKey={Langauge}>
+                              {Langauge}
+                            </Dropdown.Item>
+                          );
+                        })
+                    ) : (
+                      <>
+                        {JSON.parse(getLanguage(LANGUAGE_HISTORY))
+                          .reverse()
+                          .map((Langauge, index) => {
+                            //console.log(Langauge);
+                            if (index < 4) {
+                              return (
+                                <Dropdown.Item
+                                  key={Langauge}
+                                  eventKey={Langauge}
+                                >
+                                  {Langauge}
+                                </Dropdown.Item>
+                              );
+                            }
+                          })}
+                        <DropdownDivider />
+
+                        {Object.keys(supportedLangList)
                           .sort()
                           .map((Langauge) => {
                             //console.log(Langauge);
@@ -166,6 +217,8 @@ export default function NavBar(props) {
                               </Dropdown.Item>
                             );
                           })}
+                      </>
+                    )}
                   </ScrollableMenu>
                 </Dropdown.Menu>
               </Dropdown>
@@ -192,7 +245,11 @@ const ScrollableMenu = forwardRef(
   ({ children, style, className, "aria-labelledby": labeledBy }, ref) => (
     <div
       ref={ref}
-      style={{ ...style, overflow: "auto", maxHeight: "150px" }} // Adjust the maxHeight as needed
+      style={{
+        ...style,
+        overflow: "auto",
+        maxHeight: "400px",
+      }} // Adjust the maxHeight as needed
       className={className}
       aria-labelledby={labeledBy}
     >
