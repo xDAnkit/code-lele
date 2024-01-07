@@ -17,86 +17,6 @@ import {
 import { supportedLangList } from "./Util/constants/languages";
 
 import { useAuth0 } from "@auth0/auth0-react";
-const supportedLangList = {
-  ABAP: "abap",
-  Apex: "apex",
-  "Azure CLI": "azcli",
-  "Batch File": "bat",
-  Bicep: "bicep",
-  Cameligo: "cameligo",
-  Clojure: "clojure",
-  CoffeeScript: "coffeescript",
-  C: "c",
-  "C++": "cpp",
-  "C#": "csharp",
-  "Content Security Policy": "csp",
-  CSS: "css",
-  Cypher: "cypher",
-  Dart: "dart",
-  Dockerfile: "dockerfile",
-  ECL: "ecl",
-  Elixir: "elixir",
-  Flow9: "flow9",
-  "F#": "fsharp",
-  Go: "go",
-  GraphQL: "graphql",
-  Handlebars: "handlebars",
-  HCL: "hcl",
-  HTML: "html",
-  INI: "ini",
-  Java: "java",
-  JavaScript: "javascript",
-  Julia: "julia",
-  Kotlin: "kotlin",
-  LESS: "less",
-  Lexon: "lexon",
-  Lua: "lua",
-  M3: "m3",
-  Markdown: "markdown",
-  MDX: "mdx",
-  MISP: "misp",
-  MSDAX: "msdax",
-  MySQL: "mysql",
-  "Objective-C": "objective-c",
-  Pascal: "pascal",
-  Pascaligo: "pascaligo",
-  Perl: "perl",
-  Postiats: "postiats",
-  "Power Query": "powerquery",
-  PowerShell: "powershell",
-  "Protocol Buffers": "proto",
-  Python: "python",
-  "Q#": "qsharp",
-  R: "r",
-  Razor: "razor",
-  Redis: "redis",
-  Redshift: "redshift",
-  reStructuredText: "restructuredtext",
-  Ruby: "ruby",
-  Rust: "rust",
-  SB: "sb",
-  Scala: "scala",
-  Scheme: "scheme",
-  SCSS: "scss",
-  Shell: "shell",
-  Solidity: "sol",
-  AES: "aes",
-  SparkQL: "sparkql",
-  SQL: "sql",
-  ST: "st",
-  Swift: "swift",
-  SystemVerilog: "systemverilog",
-  Verilog: "verilog",
-  Tcl: "tcl",
-  Twig: "twig",
-  TypeScript: "typescript",
-  VB: "vb",
-  "WebGPU Shader Language": "wgsl",
-  XML: "xml",
-  YAML: "yaml",
-  JSON: "json",
-  PlainText: "plaintext",
-};
 
 export default function NavBar(props) {
   const [selectedLang, setSelectLang] = useState("PlainText");
@@ -104,6 +24,9 @@ export default function NavBar(props) {
 
   //console.log(value);
   const Location = useLocation();
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
   useEffect(() => {
     /*if (location.pathname.split("/")[2]) {
       axios
@@ -211,9 +134,7 @@ export default function NavBar(props) {
             >
               Home
             </Link>
-            {Location.pathname.startsWith("/") ? (
-              <Dropdown onSelect={onSelectLang}>
-                <Dropdown.Toggle variant="dark" id="dropdown-basic">
+
             {Location.pathname.startsWith("/code/") ? (
               <Dropdown
                 onSelect={onSelectLang}
@@ -268,9 +189,6 @@ export default function NavBar(props) {
       </Navbar>
     </>
   );
-  return () => {
-    setSearch("");
-  };
 }
 
 const ScrollableMenu = forwardRef(
@@ -287,6 +205,5 @@ const ScrollableMenu = forwardRef(
     >
       {children}
     </div>
-  )
   )
 );
