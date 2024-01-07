@@ -16,6 +16,88 @@ import {
 } from "./Util/constants/localStorage";
 import { supportedLangList } from "./Util/constants/languages";
 
+import { useAuth0 } from "@auth0/auth0-react";
+const supportedLangList = {
+  ABAP: "abap",
+  Apex: "apex",
+  "Azure CLI": "azcli",
+  "Batch File": "bat",
+  Bicep: "bicep",
+  Cameligo: "cameligo",
+  Clojure: "clojure",
+  CoffeeScript: "coffeescript",
+  C: "c",
+  "C++": "cpp",
+  "C#": "csharp",
+  "Content Security Policy": "csp",
+  CSS: "css",
+  Cypher: "cypher",
+  Dart: "dart",
+  Dockerfile: "dockerfile",
+  ECL: "ecl",
+  Elixir: "elixir",
+  Flow9: "flow9",
+  "F#": "fsharp",
+  Go: "go",
+  GraphQL: "graphql",
+  Handlebars: "handlebars",
+  HCL: "hcl",
+  HTML: "html",
+  INI: "ini",
+  Java: "java",
+  JavaScript: "javascript",
+  Julia: "julia",
+  Kotlin: "kotlin",
+  LESS: "less",
+  Lexon: "lexon",
+  Lua: "lua",
+  M3: "m3",
+  Markdown: "markdown",
+  MDX: "mdx",
+  MISP: "misp",
+  MSDAX: "msdax",
+  MySQL: "mysql",
+  "Objective-C": "objective-c",
+  Pascal: "pascal",
+  Pascaligo: "pascaligo",
+  Perl: "perl",
+  Postiats: "postiats",
+  "Power Query": "powerquery",
+  PowerShell: "powershell",
+  "Protocol Buffers": "proto",
+  Python: "python",
+  "Q#": "qsharp",
+  R: "r",
+  Razor: "razor",
+  Redis: "redis",
+  Redshift: "redshift",
+  reStructuredText: "restructuredtext",
+  Ruby: "ruby",
+  Rust: "rust",
+  SB: "sb",
+  Scala: "scala",
+  Scheme: "scheme",
+  SCSS: "scss",
+  Shell: "shell",
+  Solidity: "sol",
+  AES: "aes",
+  SparkQL: "sparkql",
+  SQL: "sql",
+  ST: "st",
+  Swift: "swift",
+  SystemVerilog: "systemverilog",
+  Verilog: "verilog",
+  Tcl: "tcl",
+  Twig: "twig",
+  TypeScript: "typescript",
+  VB: "vb",
+  "WebGPU Shader Language": "wgsl",
+  XML: "xml",
+  YAML: "yaml",
+  JSON: "json",
+  PlainText: "plaintext",
+};
+
 export default function NavBar(props) {
   const [selectedLang, setSelectLang] = useState("PlainText");
   const [search, setSearch] = useState("");
@@ -116,6 +198,9 @@ export default function NavBar(props) {
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container>
+          <img src="/code.png" alt="Navbarlogo" className="code-logo" />
+          <Navbar.Brand>Code Lele</Navbar.Brand>
+
           <Navbar.Brand>Code Share</Navbar.Brand>
 
           <Nav className="me-auto">
@@ -126,6 +211,9 @@ export default function NavBar(props) {
             >
               Home
             </Link>
+            {Location.pathname.startsWith("/") ? (
+              <Dropdown onSelect={onSelectLang}>
+                <Dropdown.Toggle variant="dark" id="dropdown-basic">
             {Location.pathname.startsWith("/code/") ? (
               <Dropdown
                 onSelect={onSelectLang}
@@ -152,15 +240,30 @@ export default function NavBar(props) {
               </Dropdown>
             ) : null}
           </Nav>
-          <button
-            type="button"
-            className="m-1 btn btn-outline-secondary btn-sm"
-          >
-            Sign In
-          </button>
-          <button type="button" className="m-1 btn btn-danger btn-sm">
-            Sign Up
-          </button>
+
+          {isAuthenticated === false ? (
+            <button
+              type="button"
+              className="m-1 btn btn-outline-secondary btn-sm"
+              onClick={loginWithRedirect}
+            >
+              Sign In/ Sign Up
+            </button>
+          ) : (
+            <div className="Profile">
+              <div className="Profile-Box">
+                {isAuthenticated && <p className="ProfileName">{user.name}</p>}
+              </div>
+
+              <button
+                type="button"
+                className="m-1 btn btn-danger btn-sm"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </Container>
       </Navbar>
     </>
@@ -184,5 +287,6 @@ const ScrollableMenu = forwardRef(
     >
       {children}
     </div>
+  )
   )
 );
