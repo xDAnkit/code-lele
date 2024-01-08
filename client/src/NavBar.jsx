@@ -51,8 +51,9 @@ export default function NavBar(props) {
     setLanguage(LAST_SELECTED_LANGUAGE, value);
     const existingLanguage = JSON.parse(getLanguage(LANGUAGE_HISTORY)) || [];
     existingLanguage.includes(value)
-      ? existingLanguage
-      : existingLanguage.push(value);
+      ? existingLanguage.splice(existingLanguage.indexOf(value), 1)
+      : existingLanguage;
+    existingLanguage.push(value);
     setLanguage(LANGUAGE_HISTORY, JSON.stringify(existingLanguage));
     props.setLang(() => supportedLangList[value]);
   }
@@ -124,8 +125,6 @@ export default function NavBar(props) {
           <img src="/code.png" alt="Navbarlogo" className="code-logo" />
           <Navbar.Brand>Code Lele</Navbar.Brand>
 
-          <Navbar.Brand>Code Share</Navbar.Brand>
-
           <Nav className="me-auto">
             <Link
               className="p-2"
@@ -134,8 +133,7 @@ export default function NavBar(props) {
             >
               Home
             </Link>
-
-            {Location.pathname.startsWith("/code/") ? (
+            {Location.pathname.startsWith("/") ? (
               <Dropdown
                 onSelect={onSelectLang}
                 onToggle={resetSearchBar}
