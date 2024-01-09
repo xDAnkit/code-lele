@@ -8,7 +8,7 @@ import {
   Nav,
   Navbar,
 } from "react-bootstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { getLanguage, setLanguage } from "./service/LocalStorageService";
 import {
   LANGUAGE_HISTORY,
@@ -19,6 +19,7 @@ import { supportedLangList } from "./Util/constants/languages";
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function NavBar(props) {
+  const { id } = useParams();
   const [selectedLang, setSelectLang] = useState("PlainText");
   const [search, setSearch] = useState("");
 
@@ -65,11 +66,10 @@ export default function NavBar(props) {
       const currentLang = supportedLangList[key];
 
       if (
-        search &&
-        currentLang.toLowerCase().search(search.toLowerCase()) !== -1
+        (search &&
+          currentLang.toLowerCase().search(search.toLowerCase()) !== -1) ||
+        !search
       ) {
-        results.push({ id: currentLang, value: key });
-      } else if (!search) {
         results.push({ id: currentLang, value: key });
       }
     }
@@ -133,7 +133,7 @@ export default function NavBar(props) {
             >
               Home
             </Link>
-            {Location.pathname.startsWith("/") ? (
+            {id && (
               <Dropdown
                 onSelect={onSelectLang}
                 onToggle={resetSearchBar}
@@ -157,7 +157,7 @@ export default function NavBar(props) {
                   <ScrollableMenu>{_renderLanguages()}</ScrollableMenu>
                 </Dropdown.Menu>
               </Dropdown>
-            ) : null}
+            )}
           </Nav>
 
           {isAuthenticated === false ? (

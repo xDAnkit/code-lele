@@ -75,7 +75,7 @@ export default function EditorTab() {
         value={codeSave ? codeSave.code : ""}
         onChange={preTextRemove}
         options={{
-          //readOnly: !hasUser,
+          readOnly: !hasUser,
           lineHeight: 24,
           theme: "vs-dark",
         }}
