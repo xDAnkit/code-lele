@@ -3,13 +3,16 @@
   text-align: center;
   position: relative;
 }
+
+body {
+  background-color: #1e1e1e !important;
+}
 p {
   margin: 0;
   padding: 0;
 }
 
 .dark-theme {
-  height: 92vh;
   background-color: #343a40; /* Set the dark background color */
   color: #ffffff; /* Set the text color to white or a light color */
 }
