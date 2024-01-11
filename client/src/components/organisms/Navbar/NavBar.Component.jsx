@@ -1,12 +1,10 @@
-import axios from "axios";
-import React, { useState, forwardRef, useEffect, useMemo } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import LanguageSelector from "./LanguageSelector";
+import LanguageSelector from "../LanguageSelector/LanguageSelector.component";
 
-export default function NavBar(props) {
+export default function NavBar() {
   const { id } = useParams();
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();

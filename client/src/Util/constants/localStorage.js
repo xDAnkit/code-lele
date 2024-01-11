@@ -2,5 +2,5 @@
 Products Constants
 */
 
-export const LAST_SELECTED_LANGUAGE = "CurrentLanguage";
-export const LANGUAGE_HISTORY = "LanguageHistory";
+export const RECENTLY_SELECTED_LANGUAGE = "selectedLanguage";
+export const SAVED_LANGUAGE_HISTORY = "languageHistory";
