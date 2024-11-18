@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import LanguageSelector from "../LanguageSelector/LanguageSelector.component";
+import { LinkTag } from "./navbar-style";
 
 export default function NavBar() {
   const { id } = useParams();
@@ -23,17 +24,9 @@ export default function NavBar() {
           {/* <Navbar.Brand>Code Lele</Navbar.Brand> */}
 
           <Nav className="me-auto">
-            <Link
-              className="p-2"
-              style={{
-                textDecoration: "none",
-                color: "white",
-                fontWeight: "bold",
-              }}
-              to={"/"}
-            >
+            <LinkTag className="p-2" to={"/"}>
               Home
-            </Link>
+            </LinkTag>
             {id && <LanguageSelector />}
           </Nav>
 
