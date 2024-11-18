@@ -9,18 +9,27 @@ export default function NavBar() {
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated } = useAuth0();
-
+  console.log("User", isAuthenticated);
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
-        <Container>
-          <img src="/code.png" alt="Navbarlogo" className="code-logo" />
-          <Navbar.Brand>Code Lele</Navbar.Brand>
+        <Container className="nav-width">
+          <img
+            src="/codeshare-logo.png"
+            alt="Navbarlogo"
+            className="code-logo"
+          />
+
+          {/* <Navbar.Brand>Code Lele</Navbar.Brand> */}
 
           <Nav className="me-auto">
             <Link
               className="p-2"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{
+                textDecoration: "none",
+                color: "white",
+                fontWeight: "bold",
+              }}
               to={"/"}
             >
               Home
@@ -44,7 +53,7 @@ export default function NavBar() {
 
               <button
                 type="button"
-                className="m-1 btn btn-danger btn-sm"
+                className="m-1 btn btn-danger btn-sm logout-btn"
                 onClick={logout}
               >
                 Logout
