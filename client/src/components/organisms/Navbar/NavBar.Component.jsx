@@ -15,13 +15,9 @@ export default function NavBar() {
     <>
       <Navbar bg="dark" data-bs-theme="dark">
         <Container className="nav-width">
-          <img
-            src="/codeshare-logo.png"
-            alt="Navbarlogo"
-            className="code-logo"
-          />
+          <img src="/code.png" alt="Navbarlogo" className="code-logo" />
 
-          {/* <Navbar.Brand>Code Lele</Navbar.Brand> */}
+          <Navbar.Brand>Code Lele</Navbar.Brand>
 
           <Nav className="me-auto">
             <LinkTag className="p-2" to={"/"}>

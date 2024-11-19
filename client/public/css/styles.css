@@ -49,9 +49,9 @@ p {
   font-weight: 600;
 }
 
-.logout-btn{font-weight: 600 !important;}
-
-.nav-width{max-width: 100% !important;}
+.nav-width {
+  max-width: 100% !important;
+}
 
 .btn-link {
   text-decoration: none;
@@ -59,7 +59,6 @@ p {
 }
 
 .code-logo {
-  /* width: 30px; */
   height: 30px;
   margin: 0 10px;
 }
