@@ -20,7 +20,7 @@ export default function NavBar() {
           <Navbar.Brand>Code Lele</Navbar.Brand>
 
           <Nav className="me-auto">
-            <LinkTag className="p-2" to={"/"}>
+            <LinkTag className="p-2" to="/">
               Home
             </LinkTag>
             {id && <LanguageSelector />}
