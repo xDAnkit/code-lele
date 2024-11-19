@@ -45,6 +45,12 @@ p {
 
 .ProfileName {
   color: white;
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.nav-width {
+  max-width: 100% !important;
 }
 
 .btn-link {
@@ -53,7 +59,6 @@ p {
 }
 
 .code-logo {
-  width: 30px;
   height: 30px;
   margin: 0 10px;
 }
