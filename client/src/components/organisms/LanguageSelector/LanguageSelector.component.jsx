@@ -73,7 +73,12 @@ export default function LanguageSelector() {
           variant="dark"
           id="dropdown-basic"
           onToggle={resetSearchBar}
-          style={{ textTransform: "capitalize" }}
+          style={{
+            textTransform: "capitalize",
+            width: "240px",
+            textAlign: "left",
+            fontWeight: "bold",
+          }}
         >
           {selectedLanguage}
         </Dropdown.Toggle>
