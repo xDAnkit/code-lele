@@ -3,6 +3,7 @@ import { Dropdown, DropdownDivider, Form } from "react-bootstrap";
 import { supportedLangList } from "../../../Util/constants/languages";
 import useLanguage from "../../../hooks/useLanguage";
 import ScrollableMenu from "../../templates/ScrollableView/ScollableView.Component";
+import { StyledDropdownToggle } from "./LanguageSelector.Style";
 
 export default function LanguageSelector() {
   const [search, setSearch] = useState("");
@@ -69,19 +70,14 @@ export default function LanguageSelector() {
         onToggle={resetSearchBar}
         focusFirstItemOnShow="true"
       >
-        <Dropdown.Toggle
+        <StyledDropdownToggle
           variant="dark"
           id="dropdown-basic"
           onToggle={resetSearchBar}
-          style={{
-            textTransform: "capitalize",
-            width: "240px",
-            textAlign: "left",
-            fontWeight: "bold",
-          }}
         >
           {selectedLanguage}
-        </Dropdown.Toggle>
+        </StyledDropdownToggle>
+
         <Dropdown.Menu>
           <Form.Control
             autoFocus
