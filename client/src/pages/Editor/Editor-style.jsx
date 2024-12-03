@@ -24,37 +24,17 @@ export const CopyDiv = styled.div`
   padding-left: 10px;
   padding-right: 10px;
   text-align: center;
-  height: 76px;
-`;
-
-export const IncreaseBtn = styled.button`
-  background: none;
-  color: #fff;
-  border: none;
-  font-size: 45px;
-  border-bottom: 2px solid #6c757d;
-  width: 100%;
-`;
-
-export const DecreaseBtn = styled.button`
-  background: none;
-  color: #fff;
-  border: none;
-  font-size: 55px;
-  border-bottom: 2px solid #6c757d;
-  width: 100%;
-`;
-
-export const ResetBtn = styled.button`
-  background: none;
-  border: none;
   height: 80px;
+`;
+
+export const IconBtn = styled.button`
+  background: none;
+  border: none;
+  height: 100px;
   border-bottom: 2px solid #6c757d;
 `;
 
-export const DownloadBtn = styled.button`
-  background: none;
-  height: 80px;
-  border: none;
-  border-bottom: 2px solid #6c757d;
+export const ShowIcon = styled.span`
+  font-size: 44px;
+  color: #fff;
 `;

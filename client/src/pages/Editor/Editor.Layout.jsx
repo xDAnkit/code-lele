@@ -16,12 +16,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 import {
   CopyDiv,
-  DecreaseBtn,
-  DownloadBtn,
-  IncreaseBtn,
+  IconBtn,
   InnerSidebarDiv,
   MainDiv,
-  ResetBtn,
+  ShowIcon,
   SideBarDiv,
 } from "./Editor-style";
 import { getItem, setItem } from "../../service/LocalStorageService";
@@ -89,7 +87,6 @@ export default function EditorTab() {
       <MainDiv>
         <Editor
           height="calc(100vh - 70px)"
-          // height="94dvh"
           language={selectedLanguage}
           value={codeSave ? codeSave.code : ""}
           onChange={preTextRemove}
@@ -105,59 +102,55 @@ export default function EditorTab() {
         <SideBarDiv>
           <CopyDiv>
             <TooltipView text="Copy Code" top="70px">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="40px"
-                viewBox="0 -960 960 960"
-                width="40px"
-                fill="#FFFFFF"
+              <ShowIcon
+                className="material-symbols-outlined"
                 onClick={() => copyToClipboard(editorCode)}
               >
-                <path d="M780-160H260q-24 0-42-18t-18-42v-640q0-24 18-42t42-18h348l232 232v468q0 24-18 42t-42 18ZM578-662v-198H260v640h520v-442H578ZM140-40q-24 0-42-18t-18-42v-619h60v619h498v60H140Zm120-820v198-198 640-640Z" />
-              </svg>
+                file_copy
+              </ShowIcon>
             </TooltipView>
           </CopyDiv>
 
           <InnerSidebarDiv>
-            <TooltipView text="Increase Font Size" top="160px">
-              <IncreaseBtn onClick={() => onFontSizeChange("+")}>+</IncreaseBtn>
-            </TooltipView>
-
-            <TooltipView text="Decrease Font Size" top="240px">
-              <DecreaseBtn onClick={() => onFontSizeChange("-")}>-</DecreaseBtn>
-            </TooltipView>
-
-            <ResetBtn
+            <IconBtn>
+              <TooltipView text="Increase Font Size" top="160px">
+                <ShowIcon
+                  onClick={() => onFontSizeChange("+")}
+                  className="material-symbols-outlined"
+                >
+                  add
+                </ShowIcon>
+              </TooltipView>
+            </IconBtn>
+            <IconBtn>
+              <TooltipView text="Decrease Font Size" top="240px">
+                <ShowIcon
+                  onClick={() => onFontSizeChange("-")}
+                  className="material-symbols-outlined"
+                >
+                  remove
+                </ShowIcon>
+              </TooltipView>
+            </IconBtn>
+            <IconBtn
               onClick={() => {
                 setFontSize(20), setlineHeight(20);
               }}
             >
               <TooltipView text="Reset Font Size" top="320px">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="40px"
-                  viewBox="0 -960 960 960"
-                  width="40px"
-                  fill="#FFFFFF"
-                >
-                  <path d="M480-160q-133 0-226.5-93.5T160-480q0-133 93.5-226.5T480-800q85 0 149 34.5T740-671v-129h60v254H546v-60h168q-38-60-97-97t-137-37q-109 0-184.5 75.5T220-480q0 109 75.5 184.5T480-220q83 0 152-47.5T728-393h62q-29 105-115 169t-195 64Z" />
-                </svg>
+                <ShowIcon className="material-symbols-outlined">
+                  settings_backup_restore
+                </ShowIcon>
               </TooltipView>
-            </ResetBtn>
+            </IconBtn>
 
-            <DownloadBtn onClick={onDownloadCode}>
+            <IconBtn onClick={onDownloadCode}>
               <TooltipView text="Download Code" top="400px">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  height="40px"
-                  viewBox="0 -960 960 960"
-                  width="40px"
-                  fill="#FFFFFF"
-                >
-                  <path d="M480-313 287-506l43-43 120 120v-371h60v371l120-120 43 43-193 193ZM220-160q-24 0-42-18t-18-42v-143h60v143h520v-143h60v143q0 24-18 42t-42 18H220Z" />
-                </svg>
+                <ShowIcon className="material-symbols-outlined">
+                  download
+                </ShowIcon>
               </TooltipView>
-            </DownloadBtn>
+            </IconBtn>
           </InnerSidebarDiv>
         </SideBarDiv>
       </MainDiv>

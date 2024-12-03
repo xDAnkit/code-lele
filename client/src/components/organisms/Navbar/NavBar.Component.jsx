@@ -25,7 +25,7 @@ export default function NavBar() {
             </LinkTag>
             {id && <LanguageSelector />}
           </Nav>
-
+          {id && <LanguageSelector />}
           {isAuthenticated === false ? (
             <button
               type="button"
