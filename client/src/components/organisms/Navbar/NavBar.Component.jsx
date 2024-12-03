@@ -2,7 +2,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
-import LanguageSelector from "../LanguageSelector/LanguageSelector.Component";
+import LanguageSelector from "../LanguageSelector/LanguageSelector.component";
 import { LinkTag } from "./navbar-style";
 
 export default function NavBar() {
@@ -25,7 +25,7 @@ export default function NavBar() {
             </LinkTag>
             {id && <LanguageSelector />}
           </Nav>
-          {id && <LanguageSelector />}
+
           {isAuthenticated === false ? (
             <button
               type="button"
