@@ -6,3 +6,12 @@ export const LinkTag = styled(Link)`
   color: white;
   font-weight: bold;
 `;
+
+export const TitleInput = styled.input`
+  background-color: #262626;
+  border: none;
+  width: 130px;
+  padding-left: 10px;
+  font-weight: 700;
+  border-radius: 5px;
+`;
