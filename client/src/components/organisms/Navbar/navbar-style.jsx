@@ -15,3 +15,9 @@ export const TitleInput = styled.input`
   font-weight: 700;
   border-radius: 5px;
 `;
+
+export const HistoryButton = styled.button`
+  background: none;
+  border: none;
+  font-weight: 700;
+`;

@@ -11,8 +11,7 @@ import {
   TEXT_EDITOR_MAX_FONT_SIZE,
 } from "./Editor.config";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import {
   CopyDiv,
@@ -27,8 +26,8 @@ import TooltipView from "../../components/organisms/Tooltip/Tooltip.Component";
 
 import { debounce } from "lodash";
 import {
-  FetchData,
-  SaveOrUpdate,
+  addUpdatedRecords,
+  getSingleRecord,
 } from "../../service/firebase/firebase.service";
 
 export default function EditorTab() {
@@ -54,7 +53,7 @@ export default function EditorTab() {
 
   useEffect(() => {
     const handleSaveUpdate = async () => {
-      const response = await SaveOrUpdate({
+      const response = await addUpdatedRecords({
         editorCode,
         title,
         selectedLanguage,
@@ -70,7 +69,7 @@ export default function EditorTab() {
 
   useEffect(() => {
     const handleFetch = async () => {
-      const responseFetch = await FetchData({
+      const responseFetch = await getSingleRecord({
         userID,
         userIdFromFirebase,
         setEditorCode,
@@ -194,13 +193,6 @@ export default function EditorTab() {
           </InnerSidebarDiv>
         </SideBarDiv>
       </MainDiv>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1500}
-        theme="dark"
-        hideProgressBar={true}
-        pauseOnHover={false}
-      />
 
       <div className="monaco-text"></div>
     </>

@@ -9,3 +9,4 @@ export const firebaseStorageBucket =
 export const firebaseMessagingSenderId =
   import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "";
 export const firebaseAppId = import.meta.env.VITE_FIREBASE_APP_ID || "";
+export const firebaseDbName = import.meta.env.VITE_FIREBASE_DB_NAME || "";

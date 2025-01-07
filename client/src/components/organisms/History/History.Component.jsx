@@ -5,33 +5,30 @@ import {
   CardLink,
   CreatedBy,
   DeleteButton,
+  DialogActionButtons,
+  DialogHeading,
   GridContainer,
   Language,
   Timestamp,
   Title,
 } from "./history-style";
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Button,
-} from "@mui/material";
+import { Dialog, DialogActions } from "@mui/material";
 import { format, formatDistanceToNow } from "date-fns";
 import {
-  DeleteData,
-  FetchAllData,
+  deleteRecord,
+  getAllRecords,
 } from "../../../service/firebase/firebase.service";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const HistoryUI = () => {
   const [getIDFromFirebase, setgetIDFromFirebase] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectedItemId, setSelectedItemID] = useState(null);
 
-  const handleClickOpen = (id) => {
+  const handleClickOpen = (id, event) => {
+    event.stopPropagation();
+    event.preventDefault();
     setOpen(true);
     setSelectedItemID(id);
   };
@@ -41,16 +38,13 @@ const HistoryUI = () => {
     setSelectedItemID(null);
   };
   const OnDeleteDoc = async () => {
-    console.log("s", selectedItemId);
-
-    const response = await DeleteData(selectedItemId);
+    const response = await deleteRecord(selectedItemId);
     toast("Item Successfully Deleted");
     handleClose();
   };
   useEffect(() => {
     const handleFetchData = async () => {
-      const response = await FetchAllData();
-      console.log("Response", response);
+      const response = await getAllRecords();
       setgetIDFromFirebase(response);
     };
     handleFetchData();
@@ -58,13 +52,6 @@ const HistoryUI = () => {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1500}
-        theme="dark"
-        hideProgressBar={true}
-        pauseOnHover={false}
-      />
       <GridContainer>
         <Dialog
           open={open}
@@ -77,46 +64,44 @@ const HistoryUI = () => {
             },
           }}
         >
-          <DialogTitle id="alert-dialog-title" sx={{ color: "#fff" }}>
+          <DialogHeading id="alert-dialog-title">
             {"Are you sure you want to delete this item?"}
-          </DialogTitle>
-          <DialogContent></DialogContent>
+          </DialogHeading>
+
           <DialogActions>
-            <Button onClick={OnDeleteDoc} autoFocus sx={{ color: "#fff" }}>
+            <DialogActionButtons onClick={OnDeleteDoc} autoFocus>
               Delete
-            </Button>
-            <Button onClick={handleClose} sx={{ color: "#fff" }}>
+            </DialogActionButtons>
+            <DialogActionButtons onClick={handleClose}>
               Cancel
-            </Button>
+            </DialogActionButtons>
           </DialogActions>
         </Dialog>
 
         {getIDFromFirebase.map((item) => (
-          <Card key={item.id}>
-            <DeleteButton onClick={() => handleClickOpen(item.id)}>
-              ✖
-            </DeleteButton>
+          <CardLink href={`http://localhost:5173/${item.id}`} target="_blank">
+            <Card key={item.id}>
+              <DeleteButton onClick={(e) => handleClickOpen(item.id, e)}>
+                ✖
+              </DeleteButton>
 
-            <Title>{item.title || "No Title"}</Title>
-            <Language>Language: {item.language || "PlainText"}</Language>
+              <Title>{item.title || "No Title"}</Title>
+              <Language>Language: {item.language || "PlainText"}</Language>
 
-            <CreatedBy>
-              Created On:{" "}
-              {item.createdAt
-                ? `${format(Number(item.createdAt), "MMMM dd,yyy")}`
-                : "Not Exists"}
-            </CreatedBy>
-            <Timestamp>
-              {`Last Updated By: ${formatDistanceToNow(
-                Number(item.updatedAt),
-                "MMMM dd,yyy"
-              )} ago`}
-            </Timestamp>
-            <CardLink href={`http://localhost:5173/${item.id}`} target="_blank">
-              {" "}
-              Click Here
-            </CardLink>
-          </Card>
+              <CreatedBy>
+                Created On:{" "}
+                {item.createdAt
+                  ? `${format(Number(item.createdAt), "MMMM dd,yyy")}`
+                  : "Not Exists"}
+              </CreatedBy>
+              <Timestamp>
+                {`Last Updated By: ${formatDistanceToNow(
+                  Number(item.updatedAt),
+                  "MMMM dd,yyy"
+                )} ago`}
+              </Timestamp>
+            </Card>
+          </CardLink>
         ))}
       </GridContainer>
     </>

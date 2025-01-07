@@ -1,3 +1,4 @@
+import { Button, DialogTitle } from "@mui/material";
 import styled, { keyframes } from "styled-components";
 export const GridContainer = styled.div`
   display: grid;
@@ -33,7 +34,6 @@ export const DeleteButton = styled.button`
   right: 10px;
   background: none;
   border: none;
-  /* color: #f44336; */
   color: #fff;
   font-size: 20px;
   cursor: pointer;
@@ -135,5 +135,13 @@ export const CloseButton = styled.button`
 `;
 
 export const TitleStyle = styled.h3`
+  color: #fff;
+`;
+
+export const DialogHeading = styled(DialogTitle)`
+  color: #fff;
+`;
+
+export const DialogActionButtons = styled(Button)`
   color: #fff;
 `;

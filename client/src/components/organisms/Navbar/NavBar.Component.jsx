@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import LanguageSelector from "../LanguageSelector/LanguageSelector.component";
-import { LinkTag, TitleInput } from "./navbar-style";
+import { HistoryButton, LinkTag, TitleInput } from "./navbar-style";
 
 import React, { useState } from "react";
 
@@ -35,16 +35,7 @@ export default function NavBar({ title, setTitle }) {
             </LinkTag>
             {id && (
               <>
-                <button
-                  style={{
-                    background: "none",
-                    border: "none",
-                    fontWeight: "700",
-                  }}
-                  onClick={handleOpen}
-                >
-                  History
-                </button>
+                <HistoryButton onClick={handleOpen}>History</HistoryButton>
                 <Modal
                   isOpen={isModalOpen}
                   onClose={handleClose}
