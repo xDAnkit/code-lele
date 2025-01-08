@@ -12,7 +12,7 @@ import {
   StyledDialog,
   Timestamp,
   Title,
-} from "./history.Styles";
+} from "./History.Styles";
 import { DialogActions } from "@mui/material";
 import { format, formatDistanceToNow } from "date-fns";
 import {
