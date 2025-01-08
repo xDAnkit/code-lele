@@ -3,14 +3,24 @@ import { Link, useParams } from "react-router-dom";
 
 import { useAuth0 } from "@auth0/auth0-react";
 import LanguageSelector from "../LanguageSelector/LanguageSelector.component";
-import { LinkTag } from "./navbar-style";
+import { HistoryButton, LinkTag, TitleInput } from "./navbar-style";
 
-export default function NavBar() {
+import React, { useState } from "react";
+
+import HistoryUI from "../History/History.Component";
+import Modal from "../../templates/Modal/Modal.Component";
+
+export default function NavBar({ title, setTitle }) {
   const { id } = useParams();
   const { loginWithRedirect } = useAuth0();
   const { logout } = useAuth0();
   const { user, isAuthenticated } = useAuth0();
   console.log("User", isAuthenticated);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
+
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark">
@@ -23,6 +33,26 @@ export default function NavBar() {
             <LinkTag className="p-2" to="/">
               Home
             </LinkTag>
+            {id && (
+              <>
+                <HistoryButton onClick={handleOpen}>History</HistoryButton>
+                <Modal
+                  isOpen={isModalOpen}
+                  onClose={handleClose}
+                  title="My Codes History"
+                >
+                  <HistoryUI />
+                </Modal>
+              </>
+            )}
+            {id && (
+              <TitleInput
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            )}
+
             {id && <LanguageSelector />}
           </Nav>
 

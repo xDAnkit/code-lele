@@ -1,5 +1,5 @@
 import Editor from "@monaco-editor/react";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import useLanguage from "../../hooks/useLanguage";
 import NavBar from "../../components/organisms/Navbar/NavBar.Component";
@@ -11,8 +11,7 @@ import {
   TEXT_EDITOR_MAX_FONT_SIZE,
 } from "./Editor.config";
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 import {
   CopyDiv,
@@ -25,6 +24,12 @@ import {
 import { getItem, setItem } from "../../service/LocalStorageService";
 import TooltipView from "../../components/organisms/Tooltip/Tooltip.Component";
 
+import { debounce } from "lodash";
+import {
+  createOrUpdateRecord,
+  getSingleRecord,
+} from "../../service/firebase/firebase.service";
+
 export default function EditorTab() {
   const { selectedLanguage } = useLanguage();
   const [codeSave, setCodeSave] = useState(null);
@@ -35,10 +40,44 @@ export default function EditorTab() {
     Number(getItem(FONT_SIZE)) || TEXT_EDITOR_FONT_SIZE
   );
   const [lineHeight, setlineHeight] = useState(
-    Number(getItem(LINE_HEIGHT)) || 20
+    Number(getItem(LINE_HEIGHT)) || 25
   );
 
   const hasUser = isAuthenticated && user.name === "Yash Shukla";
+
+  const userID = window.location.pathname.substring(1);
+
+  const [title, setTitle] = useState("Title");
+
+  let userIdFromFirebase;
+
+  useEffect(() => {
+    const handleSaveUpdate = async () => {
+      const response = await createOrUpdateRecord({
+        editorCode,
+        title,
+        selectedLanguage,
+        userID,
+      });
+    };
+    const debouncedAddUser = debounce(handleSaveUpdate, 500);
+    debouncedAddUser();
+    return () => {
+      debouncedAddUser.cancel();
+    };
+  }, [editorCode, title, selectedLanguage]);
+
+  useEffect(() => {
+    const handleFetch = async () => {
+      const responseFetch = await getSingleRecord({
+        userID,
+        userIdFromFirebase,
+        setEditorCode,
+        setTitle,
+      });
+    };
+    handleFetch();
+  }, [userID]);
 
   function preTextRemove(value) {
     const mText = document.querySelector(".monaco-text");
@@ -83,16 +122,16 @@ export default function EditorTab() {
 
   return (
     <>
-      <NavBar />
+      <NavBar title={title} setTitle={setTitle} />
       <MainDiv>
         <Editor
           height="calc(100vh - 70px)"
           language={selectedLanguage}
-          value={codeSave ? codeSave.code : ""}
+          value={editorCode}
           onChange={preTextRemove}
           theme="vs-dark"
           options={{
-            //readOnly: !hasUser,
+            // readOnly: !hasUser,
             lineHeight: lineHeight,
             fontSize: fontSize,
           }}
@@ -154,13 +193,7 @@ export default function EditorTab() {
           </InnerSidebarDiv>
         </SideBarDiv>
       </MainDiv>
-      <ToastContainer
-        position="bottom-center"
-        autoClose={1500}
-        theme="dark"
-        hideProgressBar={true}
-        pauseOnHover={false}
-      />
+
       <div className="monaco-text"></div>
     </>
   );
