@@ -7,7 +7,7 @@ import {
   ModalContainer,
   Overlay,
   TitleStyle,
-} from "../../organisms/History/history-style";
+} from "./Modal.Styles";
 
 const Modal = ({ isOpen, onClose, children, title }) => {
   useEffect(() => {

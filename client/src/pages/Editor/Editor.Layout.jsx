@@ -26,7 +26,7 @@ import TooltipView from "../../components/organisms/Tooltip/Tooltip.Component";
 
 import { debounce } from "lodash";
 import {
-  addUpdatedRecords,
+  createOrUpdateRecord,
   getSingleRecord,
 } from "../../service/firebase/firebase.service";
 
@@ -53,7 +53,7 @@ export default function EditorTab() {
 
   useEffect(() => {
     const handleSaveUpdate = async () => {
-      const response = await addUpdatedRecords({
+      const response = await createOrUpdateRecord({
         editorCode,
         title,
         selectedLanguage,

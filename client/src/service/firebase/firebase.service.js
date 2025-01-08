@@ -12,7 +12,7 @@ import { db } from "../../Firebase/firebase";
 import { firebaseDbName } from "../../config/app.config";
 
 // Add and Update Data
-export const addUpdatedRecords = async ({
+export const createOrUpdateRecord = async ({
   editorCode,
   userID,
   title,

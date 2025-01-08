@@ -9,10 +9,11 @@ import {
   DialogHeading,
   GridContainer,
   Language,
+  StyledDialog,
   Timestamp,
   Title,
-} from "./history-style";
-import { Dialog, DialogActions } from "@mui/material";
+} from "./history.Styles";
+import { DialogActions } from "@mui/material";
 import { format, formatDistanceToNow } from "date-fns";
 import {
   deleteRecord,
@@ -53,16 +54,11 @@ const HistoryUI = () => {
   return (
     <>
       <GridContainer>
-        <Dialog
+        <StyledDialog
           open={open}
           onClose={handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
-          sx={{
-            "& .MuiDialog-paper": {
-              background: "#222",
-            },
-          }}
         >
           <DialogHeading id="alert-dialog-title">
             {"Are you sure you want to delete this item?"}
@@ -76,7 +72,7 @@ const HistoryUI = () => {
               Cancel
             </DialogActionButtons>
           </DialogActions>
-        </Dialog>
+        </StyledDialog>
 
         {getIDFromFirebase.map((item) => (
           <CardLink href={`http://localhost:5173/${item.id}`} target="_blank">
