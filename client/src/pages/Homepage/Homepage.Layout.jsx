@@ -1,11 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import ShortUniqueId from "short-unique-id";
 import NavBar from "../../components/organisms/Navbar/NavBar.Component";
 
 export default function HomePage() {
-  const uid = new ShortUniqueId({ length: 7 });
-  const [id] = useState(uid.rnd());
+  const id = useRef(new ShortUniqueId({ length: 7 }).rnd()).current;
 
   return (
     <div>
